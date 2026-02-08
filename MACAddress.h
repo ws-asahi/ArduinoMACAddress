@@ -126,9 +126,9 @@ public:
     return _address.bytes;
   }
   String toString() const {
-    char szRet[18];
-    snprintf(szRet, sizeof(szRet), "%20x:%20x:%20x:%20x:%20x:%20x", _address.bytes[0], _address.bytes[1], _address.bytes[2], _address.bytes[3], _address.bytes[4], _address.bytes[5]);
-    return String(szRet);
+    char buf[28];
+    snprintf(buf, 20, "%02X:%02X:%02X:%02X:%02X:%02X", _address.bytes[0], _address.bytes[1], _address.bytes[2], _address.bytes[3], _address.bytes[4], _address.bytes[5]);
+    return String(buf);
   }
 
   virtual size_t printTo(Print &p) const {
@@ -137,7 +137,6 @@ public:
     return str.length();
   }
 };
-
 
 
 #endif
