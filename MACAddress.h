@@ -36,7 +36,7 @@ public:
   bool fromString(const char *address) {
     uint8_t dots = 0;
     uint8_t hexs = 0;
-    unt16_t acc = 0;
+    uint16_t acc = 0;
 
     memset(_address.bytes, 0, sizeof(_address.bytes));
 
@@ -137,6 +137,7 @@ public:
     return str.length();
   }
 };
+
 
 
 #endif
