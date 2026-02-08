@@ -121,6 +121,11 @@ public:
   MACAddress &operator=(const String &address) {
     fromString(address);
   }
+  operator uint8_t*()
+  {
+    return _address.bytes;
+  }
+  
 
   uint8_t *toBytes() {
     return _address.bytes;
