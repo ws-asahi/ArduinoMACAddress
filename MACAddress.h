@@ -33,6 +33,14 @@ public:
     LOWER_PERIOD,
   };
 
+  enum MacType{
+    UNKNOWN,
+    GLOBAL_UNICAST,
+    GLOBAL_MULTICAST,
+    LOCAL_UNICAST,
+    LOCAL_MULTICAST,
+  };
+
 private:
   union {
     uint8_t bytes[MAC_BYTES_LENGTH];
@@ -310,6 +318,36 @@ public:
     _defaultFormat = format;
   }
 
+  MacType getType(){
+    uint8_t id = _address.bytes[0] & 0x0F;
+    switch(id){
+      case 0x0:
+      case 0x4:
+      case 0x8:
+      case 0xC:
+        return MacType::GLOBAL_UNICAST;
+        
+      case 0x1:
+      case 0x5:
+      case 0x9:
+      case 0xD:
+        return MacType::GLOBAL_MULTICAST;
+
+      case 0x2:
+      case 0x6:
+      case 0xA:
+      case 0xE:
+        return MacType::LOCAL_UNICAST;
+        
+      case 0x3:
+      case 0x7:
+      case 0xB:
+      case 0xF:
+        return MacType::LOCAL_MULTICAST;
+    }
+    return MacType::UNKNOWN;
+  }
+
   uint8_t* toBytes() {
     return _address.bytes;
   }
@@ -356,6 +394,7 @@ private:
     memset(_address.bytes, 0, sizeof(_address.bytes));
   }
 };
+
 
 
 #endif
